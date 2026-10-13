@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curso de Claude Code · UTEC — Pago único US$19.99</title>
+<meta name="description" content="Aprende a programar con Claude Code desde cero: agentes, automatizaciones, MCP, GitHub, VS Code y 2 proyectos reales. Pago único US$19.99, acceso de por vida.">
+<meta property="og:title" content="Curso de Claude Code · UTEC">
+<meta property="og:description" content="De cero a avanzado con Claude Code: subagentes, skills, MCP y proyectos reales. Pago único US$19.99.">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 248 248'%3E%3Cpath fill='%23D97757' d='M52.4285 162.873L98.7844 136.879L99.5485 134.602L98.7844 133.334H96.4921L88.7237 132.862L62.2346 132.153L39.3113 131.207L17.0249 130.026L11.4214 128.844L6.2 121.873L6.7094 118.447L11.4214 115.257L18.171 115.847L33.0711 116.911L55.485 118.447L71.6586 119.392L95.728 121.873H99.5485L100.058 120.337L98.7844 119.392L97.7656 118.447L74.5877 102.732L49.4995 86.1905L36.3823 76.62L29.3779 71.7757L25.8121 67.2858L24.2839 57.3608L30.6515 50.2716L39.3113 50.8623L41.4763 51.4531L50.2636 58.1879L68.9842 72.7209L93.4357 90.6804L97.0015 93.6343L98.4374 92.6652L98.6571 91.9801L97.0015 89.2625L83.757 65.2772L69.621 40.8192L63.2534 30.6579L61.5978 24.632C60.9565 22.1032 60.579 20.0111 60.579 17.4246L67.8381 7.49965L71.9133 6.19995L81.7193 7.49965L85.7946 11.0443L91.9074 24.9865L101.714 46.8451L116.996 76.62L121.453 85.4816L123.873 93.6343L124.764 96.1155H126.292V94.6976L127.566 77.9197L129.858 57.3608L132.15 30.8942L132.915 23.4505L136.608 14.4708L143.994 9.62643L149.725 12.344L154.437 19.0788L153.8 23.4505L150.998 41.6463L145.522 70.1215L141.957 89.2625H143.994L146.414 86.7813L156.093 74.0206L172.266 53.698L179.398 45.6635L187.803 36.802L193.152 32.5484H203.34L210.726 43.6549L207.415 55.1159L196.972 68.3492L188.312 79.5739L175.896 96.2095L168.191 109.585L168.882 110.689L170.738 110.53L198.755 104.504L213.91 101.787L231.994 98.7149L240.144 102.496L241.036 106.395L237.852 114.311L218.495 119.037L195.826 123.645L162.07 131.592L161.696 131.893L162.137 132.547L177.36 133.925L183.855 134.279H199.774L229.447 136.524L237.215 141.605L241.8 147.867L241.036 152.711L229.065 158.737L213.019 154.956L175.45 145.977L162.587 142.787H160.805V143.85L171.502 154.366L191.242 172.089L215.82 195.011L217.094 200.682L213.91 205.172L210.599 204.699L188.949 188.394L180.544 181.069L161.696 165.118H160.422V166.772L164.752 173.152L187.803 207.771L188.949 218.405L187.294 221.832L181.308 223.959L174.813 222.777L161.187 203.754L147.305 182.486L136.098 163.345L134.745 164.2L128.075 235.42L125.019 239.082L117.887 241.8L111.902 237.31L108.718 229.984L111.902 215.452L115.722 196.547L118.779 181.541L121.58 162.873L123.291 156.636L123.14 156.219L121.773 156.449L107.699 175.752L86.304 204.699L69.3663 222.777L65.291 224.431L58.2867 220.768L58.9235 214.27L62.8713 208.48L86.304 178.705L100.44 160.155L109.551 149.507L109.462 147.967L108.959 147.924L46.6977 188.512L35.6182 189.93L30.7788 185.44L31.4156 178.115L33.7079 175.752L52.4285 162.873Z'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/source-serif-4-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* cls1-fallback-v1: fallbacks métricos para que el cambio de fuente no mueva el layout */
+@font-face{font-family:'Serif Fallback';src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif'),local('Tinos');size-adjust:100.67%}
+@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/source-serif-4-var.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Inter var';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-var.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jetbrains-mono.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+
+:root{
+  --crema:#FAF9F5;
+  --crema2:#F0EEE6;
+  --crema-alt:#F5F4ED;
+  --tinta:#141413;
+  --tinta-mut:#5E5D59;
+  --tinta-2:#30302E;
+  --terracota:#D97757;
+  --terracota-dark:#C6613F;
+  --focus:#C46849;
+  --durazno:#EBC9B7;
+  --salvia:#BCD1CA;
+  --lavanda:#CBCADB;
+  --arena:#E3DACC;
+  --borde:#E8E6DC;
+  --borde-2:#D1CFC5;
+  --borde-1:#B0AEA5;
+  --oliva:#788C5D;
+  --pizarra:#3D3D3A;
+  --sombra:none;
+  --radio:24px;
+  --serif:'Source Serif 4','Serif Fallback',Georgia,serif;
+  --sans:'Inter var','Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--crema);
+  color:var(--tinta);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.5;
+  font-feature-settings:"pnum" on,"lnum" on,"liga" on;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:60rem;margin:0 auto;padding:0 clamp(2rem, 2rem + 32*(100vw - 20rem)/1120, 4rem)}
+section{padding:clamp(1.75rem, 1.75rem + 2*(100vw - 20rem)/1120, 3rem) 0}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:normal;text-wrap:balance;font-optical-sizing:auto}
+h1{font-size:clamp(51.5px, 46.858px + 1.1905vw, 64px);line-height:1.1;font-weight:400}
+h2{font-size:clamp(35.125px, 28.857px + 1.6071vw, 52px);line-height:1.2}
+h3{font-size:clamp(1.4375rem, 1.4375rem + 9*(100vw - 20rem)/1120, 2rem);line-height:1.1}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.01em;text-transform:uppercase;
+  line-height:1.6;color:var(--tinta-mut);margin-bottom:10px;
+}
+.lead{font-size:clamp(20.1875px, 19.143px + 0.2679vw, 23px);line-height:1.5;color:var(--tinta-mut);max-width:60ch}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+/* ---------- chispa (logo oficial de Claude, claude.ai/favicon.svg, fill #D97757) ---------- */
+.chispa{width:1em;height:1em;fill:var(--terracota);transform-origin:50% 50%}
+.chispa-hero{width:56px;height:56px;margin:0 auto 22px;animation:chispa-entrada .7s cubic-bezier(.34,1.56,.64,1) both}
+.chispa-cierre{width:40px;height:40px;margin:0 auto 18px;animation:chispa-entrada .7s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes chispa-entrada{from{opacity:0;transform:scale(.6) rotate(-45deg)}to{opacity:1;transform:scale(1) rotate(0deg)}}
+@media (prefers-reduced-motion: reduce){
+  .chispa-hero,.chispa-cierre{animation:none}
+}
+
+/* ---------- chispa "pensando" (sprite oficial 84 frames, claude.com) ---------- */
+.chispa-sprite{display:inline-block;overflow:hidden;flex-shrink:0;width:20px;height:20px;color:var(--terracota)}
+.chispa-sprite .strip{
+  display:block;width:20px;height:calc(20px*84);background:currentColor;
+  -webkit-mask-image:url(assets/claude-spark-thinking-sprite-84f.webp);mask-image:url(assets/claude-spark-thinking-sprite-84f.webp);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  animation:chispa-spark-spin 5040ms steps(84,jump-none) infinite;
+}
+@keyframes chispa-spark-spin{0%{transform:translateY(0)}to{transform:translateY(calc(-100% * 83/84))}}
+@media (prefers-reduced-motion: reduce){
+  .chispa-sprite .strip{animation:none;transform:translateY(-4.7619%)}
+}
+
+/* ---------- ilustraciones CC5b (estilo Anthropic, SVG animadas por código) ---------- */
+.ilus-cc5b{display:block;margin:0 auto}
+.ilus-cc5b svg{display:block;margin:0 auto;overflow:visible}
+.ilus-cc5b .trazo{fill:none;stroke:var(--tinta);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.ilus-cc5b .borde{stroke:var(--tinta);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.ilus-cc5b .borde-fino{stroke:var(--tinta);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.ilus-cc5b .pieza{opacity:0;transform:scale(.7);transform-origin:center;transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1)}
+.ilus-cc5b.in-view .pieza{opacity:1;transform:scale(1)}
+.ilus-cc5b .desliza{transform:translateY(var(--dy,0px));transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.ilus-cc5b.in-view .desliza{transform:translateY(0)}
+.ilus-cc5b .conecta{fill:none;stroke:var(--tinta);stroke-width:4;stroke-linecap:round;opacity:.6;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset .8s ease}
+.ilus-cc5b.in-view .conecta{stroke-dashoffset:0}
+.ilus-cc5b .punto{transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .35s ease;opacity:0;transform:scale(0)}
+.ilus-cc5b.in-view .punto{opacity:1;transform:scale(1)}
+.ilus-cc5b .d1{transition-delay:.05s}.ilus-cc5b .d2{transition-delay:.15s}.ilus-cc5b .d3{transition-delay:.3s}
+.ilus-cc5b .d4{transition-delay:.45s}.ilus-cc5b .d5{transition-delay:.6s}.ilus-cc5b .d6{transition-delay:.75s}
+.ilus-cc5b .d7{transition-delay:.9s}.ilus-cc5b .d8{transition-delay:1.05s}.ilus-cc5b .d9{transition-delay:1.2s}
+.ilus-cc5b .d10{transition-delay:1.35s}.ilus-cc5b .d11{transition-delay:1.5s}.ilus-cc5b .d12{transition-delay:1.65s}
+.ilus-cc5b .d13{transition-delay:1.8s}.ilus-cc5b .d14{transition-delay:1.95s}.ilus-cc5b .d15{transition-delay:2.1s}
+.ilus-cc5b .d16{transition-delay:2.25s}
+@media (prefers-reduced-motion: reduce){
+  .ilus-cc5b .pieza{transition:none;opacity:1;transform:scale(1)}
+  .ilus-cc5b .desliza{transition:none}
+  .ilus-cc5b .conecta{transition:none}
+  .ilus-cc5b .punto{transition:none;opacity:1;transform:scale(1)}
+}
+
+/* ---------- header / hero ---------- */
+header.hero{
+  padding:52px 0 60px;
+  text-align:center;
+  background:var(--crema);
+}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;height:28px;
+  background:var(--crema);border:none;box-shadow:0 0 0 1px var(--borde-2);
+  border-radius:8px;padding:4px 12px;font-size:12px;font-weight:400;
+  color:var(--tinta-mut);margin-bottom:26px;
+}
+.hero h1{max-width:760px;margin:0 auto 18px}
+.hero h1 .acento{color:var(--terracota)}
+.hero .lead{margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 34px}
+.chip{
+  display:inline-flex;align-items:center;height:28px;
+  font-size:12px;font-weight:400;color:var(--tinta-mut);
+  background:var(--crema);border:none;box-shadow:0 0 0 1px var(--borde-2);border-radius:8px;padding:4px 12px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;justify-content:center;
+  background:var(--terracota-dark);color:#FFFFFF;font-weight:500;font-size:15px;line-height:1;
+  font-family:var(--sans);border:none;border-radius:8px;height:40px;padding:8px 24px;text-decoration:none;
+  box-shadow:0 0 0 0 var(--terracota-dark);
+  transition:color .1s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+.btn:hover{box-shadow:0 0 0 2px var(--terracota-dark)}
+.btn:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.btn-note{display:block;margin-top:12px;font-size:13.5px;color:var(--tinta-mut)}
+
+/* ---------- terminal mockup ---------- */
+.term-ctx{margin:32px auto 18px;max-width:640px}.term-ctx h3{font-family:var(--serif);font-weight:500;font-size:clamp(26px,22px + 1vw,34px);line-height:1.2;margin:10px 0 12px}.term-ctx .lead{margin:0 auto}.term-ctx+.terminal{margin-top:0}
+.terminal{
+  max-width:640px;margin:44px auto 0;text-align:left;
+  background:var(--tinta);border:1px solid var(--tinta-2);border-radius:16px;overflow:hidden;
+  box-shadow:none;
+}
+.terminal .barra{
+  display:flex;gap:8px;align-items:center;padding:12px 16px;background:var(--tinta-2);border-bottom:1px solid #262624;
+}
+.terminal .dot{width:10px;height:10px;border-radius:50%;background:#87867F}
+.terminal .cuerpo{
+  padding:40px;font-family:var(--mono);
+  font-size:15px;line-height:1.5;color:var(--borde-1);
+}
+.pt{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:currentColor;vertical-align:.1em}
+#por-dentro .terminal{margin-top:48px}
+.terminal .prompt{color:var(--terracota)}
+.terminal .user-line{color:var(--crema)}
+.terminal .paso{color:var(--borde-1)}
+.terminal .paso .bala{color:#fff}
+.terminal .ok{color:#4EBA65}
+.terminal .pensando-linea{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:15px;color:#D77757}
+.terminal .pensando-linea .verbo{background:linear-gradient(to right,#D77757 30%,rgb(235,159,127) 50%,#D77757 70%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:pensando-shimmer 3.2s linear infinite}
+@keyframes pensando-shimmer{0%{background-position:300% 0}to{background-position:-300% 0}}
+.terminal .cursor{display:inline-block;width:7px;height:14px;background:#D97757;vertical-align:-2px;animation:cursor-parpadeo 1s step-end infinite}
+@media (prefers-reduced-motion: reduce){.terminal .cursor,.terminal .pensando-linea .verbo{animation:none}}
+@keyframes cursor-parpadeo{50%{opacity:0}}
+@media (max-width:52.125em){.terminal .cuerpo{padding:16px}}
+
+/* ---------- pensando (typing demo) ---------- */
+.pensando-wrap{background:var(--crema2);padding:clamp(2.75rem, 2.75rem + 2*(100vw - 20rem)/1120, 4rem) 0}
+#construir .chips{margin-bottom:0}
+.pensando-card{
+  max-width:640px;margin:36px auto 0;background:#fff;border:1px solid var(--borde);
+  border-radius:var(--radio);box-shadow:none;overflow:hidden;
+}
+.pensando-head{
+  display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--borde);
+  font-weight:600;font-size:14px;color:var(--tinta-mut);
+}
+.pensando-body{padding:22px 22px 26px;font-size:15px}
+.pensando-prompt{
+  background:#fff;border:1px solid var(--borde-2);border-radius:16px;min-height:50px;
+  padding:8px 16px 8px 24px;display:flex;align-items:center;font-weight:400;
+}
+.pensando-prompt .cursor{display:inline-block;width:2px;height:1em;background:var(--tinta);vertical-align:-2px;margin-left:1px;animation:cursor-parpadeo .9s step-end infinite}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:9px}
+.pasos li{
+  display:flex;gap:10px;align-items:flex-start;color:var(--tinta-mut);font-size:14.5px;
+  opacity:0;transform:translateY(4px);transition:opacity .35s ease, transform .35s ease;
+}
+.pasos li.mostrar{opacity:1;transform:translateY(0)}
+.pasos li .marca{color:var(--terracota);font-weight:700;flex:0 0 auto}
+.pasos li.listo{color:var(--tinta);font-weight:600}
+.pasos li.listo .marca{color:#4F8F5B}
+
+/* ---------- qué incluye ---------- */
+.resumen-num{
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:34px 0 46px;
+}
+.resumen-num .num-card{
+  background:#fff;border:1px solid var(--borde);border-radius:16px;padding:16px 24px;min-width:150px;text-align:center;
+}
+.resumen-num .num{font-family:var(--serif);font-size:30px;font-weight:500;color:var(--tinta)}
+.resumen-num .lbl{font-size:13px;color:var(--tinta-mut);font-weight:600}
+
+.secciones{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.seccion-card{
+  background:#fff;border:1px solid var(--borde);border-radius:24px;padding:32px;
+  opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;
+}
+.seccion-card.in-view{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){.seccion-card{opacity:1;transform:none;transition:none}}
+.icono-mini{
+  width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;
+}
+.icono-mini svg{width:19px;height:19px}
+.seccion-card .n{
+  font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.01em;
+  text-transform:uppercase;line-height:1.6;color:var(--tinta-mut);
+}
+.seccion-card h3{margin:5px 0 8px}
+.seccion-card p{font-size:14.5px;color:var(--tinta-mut)}
+.seccion-card .proyecto-tag{
+  display:inline-block;margin-top:10px;font-size:12px;font-weight:500;color:var(--tinta);
+  background:var(--durazno);border-radius:6px;padding:4px 10px;
+}
+.bg-durazno{background:var(--durazno)}
+.bg-salvia{background:var(--salvia)}
+.bg-lavanda{background:var(--lavanda)}
+.bg-arena{background:var(--arena)}
+.ilustracion{display:block}
+.ilustracion svg{margin:0 auto}
+
+/* ---------- precio ---------- */
+.precio-wrap{background:var(--crema2)}
+.precio-card{
+  max-width:460px;margin:0 auto;background:#fff;border:1px solid var(--borde);border-radius:24px;
+  padding:32px;text-align:center;box-shadow:none;
+}
+.precio-card .tag{
+  display:inline-block;background:var(--durazno);color:var(--tinta);font-weight:500;
+  font-size:12.5px;border-radius:6px;padding:5px 13px;margin-bottom:18px;
+}
+.precio-monto{font-family:var(--serif);font-size:56px;font-weight:500;line-height:1}
+.precio-monto sup{font-size:22px;font-weight:500;top:-1.4em}
+.precio-sub{color:var(--tinta-mut);font-size:14px;margin:6px 0 26px}
+.precio-card .btn{width:100%;height:48px}
+.incluye-lista{list-style:none;text-align:left;margin:26px 0 0;display:flex;flex-direction:column;gap:11px}
+.incluye-lista li{display:flex;gap:10px;font-size:14.5px;color:var(--tinta-mut)}
+.incluye-lista li .marca{color:#4F8F5B;font-weight:700}
+
+/* ---------- bonos ---------- */
+.bonos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.bono-card{
+  background:#fff;border:1px solid var(--borde);border-radius:16px;padding:16px;
+  opacity:0;transform:translateY(12px);transition:opacity .45s ease, transform .45s ease;
+}
+.bono-card.in-view{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){.bono-card{opacity:1;transform:none;transition:none}}
+.bono-card .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.bono-card .icono-mini{margin-bottom:0;width:32px;height:32px}
+.bono-card .icono-mini svg{width:16px;height:16px}
+.bono-card .cifra{font-weight:700;font-size:13px;color:var(--terracota-dark)}
+.bono-card h3{font-family:var(--sans);font-weight:600;letter-spacing:normal;font-size:clamp(1rem, 1rem + 3*(100vw - 20rem)/1120, 1.1875rem);line-height:1.2}
+.bono-card p{font-size:13px;color:var(--tinta-mut);margin-top:4px}
+
+/* ---------- FAQ ---------- */
+.faq{display:flex;flex-direction:column;gap:12px;max-width:680px;margin:30px auto 0}
+.faq details{
+  background:#fff;border:1px solid var(--borde);border-radius:12px;padding:18px 20px;
+}
+.faq summary{
+  font-weight:600;font-size:16px;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-size:22px;color:var(--terracota);font-weight:400;flex:0 0 auto}
+.faq details[open] summary::after{content:'–'}
+.faq .r{margin-top:12px;color:var(--tinta-mut);font-size:14.5px}
+
+/* ---------- cierre ---------- */
+.cierre{text-align:center;padding-bottom:90px}
+.cierre .btn{margin-top:8px}
+footer{
+  text-align:center;padding:30px 20px 50px;font-size:12.5px;color:var(--tinta-mut);
+}
+footer p+p{margin-top:8px}
+
+@media (max-width:640px){
+  .secciones,.bonos-grid{grid-template-columns:1fr}
+  .seccion-card{padding:24px}
+  .precio-card{padding:24px}
+}
+/* cc7-hero-video: video del hero en ventana estilo Claude */
+.hero-video.clip{max-width:720px;margin:6px auto 26px}
+.hero-video .clip-bar{height:18px;gap:5px;padding-left:5px}.hero-video .clip-bar i{width:7px;height:7px}
+.hero-video video{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:8px;background:#141413}
+@media (min-width:768px){.hero-video .clip-bar{height:26px;gap:7px;padding-left:8px}.hero-video .clip-bar i{width:10px;height:10px}.hero-video .clip-win{padding:0 7px 7px;border-radius:16px}}
+/* cc6c-grilla-v2: 6 clips, 2 filas x 3, ventana estilo Claude */
+.clips.clip-solo{grid-template-columns:1fr;max-width:720px;margin-top:36px}
+.clips-wrap{padding-top:clamp(1.5rem,1.5rem + 2*(100vw - 20rem)/1120,2.5rem)}
+.clips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px;max-width:980px;margin-left:auto;margin-right:auto}
+.clip{margin:0;min-width:0}
+.clip-win{background:var(--crema2);border:1px solid var(--borde);border-radius:10px;padding:0 4px 4px;box-shadow:0 1px 2px rgba(20,20,19,.04),0 6px 18px rgba(20,20,19,.06)}
+.clip-bar{display:flex;gap:4px;align-items:center;height:14px;padding-left:3px}
+.clip-bar i{display:block;width:5px;height:5px;border-radius:50%;background:var(--borde-2)}
+.clip-bar i:first-child{background:var(--terracota)}
+.clip video{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:6px;background:#141413}
+.clip figcaption{margin-top:8px;font-size:12px;line-height:1.3;color:var(--tinta)}
+.clip-sec{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--terracota-dark);margin-bottom:1px}
+@media (min-width:768px){.clips{gap:22px}.clip-win{border-radius:14px;padding:0 6px 6px}.clip-bar{height:24px;gap:6px;padding-left:6px}.clip-bar i{width:9px;height:9px}.clip video{border-radius:8px}.clip figcaption{font-size:15px;margin-top:12px}.clip-sec{font-size:12px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="chispa-oficial" viewBox="0 0 248 248">
+      <path d="M52.4285 162.873L98.7844 136.879L99.5485 134.602L98.7844 133.334H96.4921L88.7237 132.862L62.2346 132.153L39.3113 131.207L17.0249 130.026L11.4214 128.844L6.2 121.873L6.7094 118.447L11.4214 115.257L18.171 115.847L33.0711 116.911L55.485 118.447L71.6586 119.392L95.728 121.873H99.5485L100.058 120.337L98.7844 119.392L97.7656 118.447L74.5877 102.732L49.4995 86.1905L36.3823 76.62L29.3779 71.7757L25.8121 67.2858L24.2839 57.3608L30.6515 50.2716L39.3113 50.8623L41.4763 51.4531L50.2636 58.1879L68.9842 72.7209L93.4357 90.6804L97.0015 93.6343L98.4374 92.6652L98.6571 91.9801L97.0015 89.2625L83.757 65.2772L69.621 40.8192L63.2534 30.6579L61.5978 24.632C60.9565 22.1032 60.579 20.0111 60.579 17.4246L67.8381 7.49965L71.9133 6.19995L81.7193 7.49965L85.7946 11.0443L91.9074 24.9865L101.714 46.8451L116.996 76.62L121.453 85.4816L123.873 93.6343L124.764 96.1155H126.292V94.6976L127.566 77.9197L129.858 57.3608L132.15 30.8942L132.915 23.4505L136.608 14.4708L143.994 9.62643L149.725 12.344L154.437 19.0788L153.8 23.4505L150.998 41.6463L145.522 70.1215L141.957 89.2625H143.994L146.414 86.7813L156.093 74.0206L172.266 53.698L179.398 45.6635L187.803 36.802L193.152 32.5484H203.34L210.726 43.6549L207.415 55.1159L196.972 68.3492L188.312 79.5739L175.896 96.2095L168.191 109.585L168.882 110.689L170.738 110.53L198.755 104.504L213.91 101.787L231.994 98.7149L240.144 102.496L241.036 106.395L237.852 114.311L218.495 119.037L195.826 123.645L162.07 131.592L161.696 131.893L162.137 132.547L177.36 133.925L183.855 134.279H199.774L229.447 136.524L237.215 141.605L241.8 147.867L241.036 152.711L229.065 158.737L213.019 154.956L175.45 145.977L162.587 142.787H160.805V143.85L171.502 154.366L191.242 172.089L215.82 195.011L217.094 200.682L213.91 205.172L210.599 204.699L188.949 188.394L180.544 181.069L161.696 165.118H160.422V166.772L164.752 173.152L187.803 207.771L188.949 218.405L187.294 221.832L181.308 223.959L174.813 222.777L161.187 203.754L147.305 182.486L136.098 163.345L134.745 164.2L128.075 235.42L125.019 239.082L117.887 241.8L111.902 237.31L108.718 229.984L111.902 215.452L115.722 196.547L118.779 181.541L121.58 162.873L123.291 156.636L123.14 156.219L121.773 156.449L107.699 175.752L86.304 204.699L69.3663 222.777L65.291 224.431L58.2867 220.768L58.9235 214.27L62.8713 208.48L86.304 178.705L100.44 160.155L109.551 149.507L109.462 147.967L108.959 147.924L46.6977 188.512L35.6182 189.93L30.7788 185.44L31.4156 178.115L33.7079 175.752L52.4285 162.873Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pill">💻 Curso de Claude Code · UTEC</span>
+    <svg class="chispa chispa-hero" aria-hidden="true"><use href="#chispa-oficial"></use></svg>
+    <h1>Aprende a programar <span class="acento">con un agente de IA</span> que escribe código contigo</h1>
+    <p class="lead center">Curso de Claude Code desde cero hasta flujo agéntico avanzado: subagentes, skills, MCP, GitHub, VS Code y <b>2 proyectos reales</b> construidos de principio a fin. Sin experiencia previa.</p>
+    <!-- cc7b-hero-demo -->
+    <div class="hero-video clip">
+      <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/clips/00-hero-demo-poster.webp?v=cc10" width="960" height="600" aria-label="Demo: Claude Code crea y publica una landing con botón de pedidos">
+          <source src="assets/clips/00-hero-demo.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/00-hero-demo.mp4?v=cc10" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip">Pago único</span>
+      <span class="chip">Acceso inmediato</span>
+      <span class="chip">De por vida</span>
+      <span class="chip">Actualizaciones gratis</span>
+    </div>
+    <a class="btn" href="#precio">Quiero el curso · US$19.99 →</a>
+    <span class="btn-note">Sin experiencia previa: desde cero hasta avanzado</span>
+
+  </div>
+</header>
+
+<!-- cc6c-grilla-v2 -->
+<section id="por-dentro" class="clips-wrap">
+  <div class="wrap">
+    <p class="eyebrow center">Clases reales</p>
+    <h2 class="center">Así se ve el curso por dentro</h2>
+    <div class="clips">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/01-sec1-primeruso-poster.webp?v=cc10" width="720" height="450" aria-label="Demo: Claude Code ordena una carpeta de descargas en carpetas">
+          <source src="assets/clips/01-sec1-primeruso.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/01-sec1-primeruso.mp4?v=cc10" type="video/mp4">
+        </video></div>
+        <figcaption><span class="clip-sec">Sección 1</span>Tu primer uso de Claude Code</figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/02-sec2-agentteams-poster.webp?v=cc10" width="720" height="450" aria-label="Demo: un equipo de 4 agentes arma una landing en paralelo">
+          <source src="assets/clips/02-sec2-agentteams.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/02-sec2-agentteams.mp4?v=cc10" type="video/mp4">
+        </video></div>
+        <figcaption><span class="clip-sec">Sección 2</span>Equipos de agentes</figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/03-sec2-peliculas-poster.webp?v=cc10" width="720" height="450" aria-label="Demo: Claude Code crea una app de películas con buscador y ranking">
+          <source src="assets/clips/03-sec2-peliculas.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/03-sec2-peliculas.mp4?v=cc10" type="video/mp4">
+        </video></div>
+        <figcaption><span class="clip-sec">Sección 2</span>App de películas desde cero</figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/04-sec3-formulario-poster.webp?v=cc10" width="720" height="450" aria-label="Demo: Claude Code crea un formulario para registrar productos">
+          <source src="assets/clips/04-sec3-formulario.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/04-sec3-formulario.mp4?v=cc10" type="video/mp4">
+        </video></div>
+        <figcaption><span class="clip-sec">Sección 3</span>Formulario de productos</figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/05-sec3-inventario-poster.webp?v=cc10" width="720" height="450" aria-label="Demo: inventario en vivo con alerta de stock bajo">
+          <source src="assets/clips/05-sec3-inventario.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/05-sec3-inventario.mp4?v=cc10" type="video/mp4">
+        </video></div>
+        <figcaption><span class="clip-sec">Sección 3</span>Inventario en vivo</figcaption>
+      </figure>
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/06-sec3-reportes-poster.webp?v=cc10" width="720" height="450" aria-label="Demo: Claude Code exporta las ventas del mes a Excel">
+          <source src="assets/clips/06-sec3-reportes.webm?v=cc10" type="video/webm">
+          <source src="assets/clips/06-sec3-reportes.mp4?v=cc10" type="video/mp4">
+        </video></div>
+        <figcaption><span class="clip-sec">Sección 3</span>Reporte exportado a Excel</figcaption>
+      </figure>
+    </div>
+    <div class="term-ctx">
+      <p class="eyebrow center">Tú pides, Claude Code hace</p>
+      <h3 class="center">Así trabajas en cada clase</h3>
+      <p class="lead center">Le escribes en español lo que quieres. Claude Code lee tu proyecto, crea los archivos, conecta la base de datos y corre las pruebas. Tú revisas cada paso y aprendes por qué lo hizo así.</p>
+    </div>
+    <div class="terminal" role="img" aria-label="Simulación de una sesión de Claude Code en terminal">
+      <div class="barra"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="cuerpo">
+        <div><span class="prompt">&gt;</span> <span class="user-line">claude</span></div>
+        <div>&nbsp;</div>
+        <div class="user-line">&gt; agrega autenticación a mi app y conecta la base de datos</div>
+        <div>&nbsp;</div>
+        <div class="paso"><span class="bala"><i class="pt"></i></span> Leyendo estructura del proyecto…</div>
+        <div class="paso"><span class="bala"><i class="pt"></i></span> Creando <b>auth/login.tsx</b></div>
+        <div class="paso"><span class="bala"><i class="pt"></i></span> Conectando MCP → base de datos</div>
+        <div class="pensando-linea"><span id="terminal-spin">·</span> <span class="verbo">Forjando</span>…</div>
+        <div class="ok">✓&#xFE0E; Listo. Tests pasando. <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="construir">
+  <div class="wrap">
+    <p class="eyebrow center">Antes de empezar</p>
+    <h2 class="center">Qué vas a construir</h2>
+    <p class="lead center">Cada clase suma una capa real sobre la anterior: interfaz, código, datos y el servidor que lo sirve. Al final tienes una app completa, no un ejercicio suelto.</p>
+
+    <!-- cc11-construir -->
+    <div class="clips clip-solo">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/07-construir-poster.webp?v=cc11" width="720" height="450" aria-label="Demo: una app se arma por capas (servidor, datos, código e interfaz) y termina en una tienda que recibe un pedido">
+          <source src="assets/clips/07-construir.webm?v=cc11" type="video/webm">
+          <source src="assets/clips/07-construir.mp4?v=cc11" type="video/mp4">
+        </video></div>
+      </figure>
+    </div>
+
+    <div class="chips" style="margin-top:30px">
+      <span class="chip">Interfaz</span>
+      <span class="chip">Código</span>
+      <span class="chip">Base de datos</span>
+      <span class="chip">Servidor</span>
+    </div>
+  </div>
+</section>
+
+<section class="pensando-wrap" id="pensando">
+  <div class="wrap">
+    <p class="eyebrow center">Así se trabaja en el curso</p>
+    <h2 class="center">Le hablas en español. Claude Code piensa, decide y construye</h2>
+    <p class="lead center">No memorizas sintaxis a ciegas: aprendes a dirigir un agente que planea los pasos, edita los archivos y te explica por qué.</p>
+
+    <!-- cc11-pensando -->
+    <div class="clips clip-solo">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/10-pensando-poster.webp?v=cc11" width="720" height="450" aria-label="Demo: Claude Code en tema claro recibe un pedido en español, edita el login, pasa las pruebas y la vista previa muestra el login funcionando">
+          <source src="assets/clips/10-pensando.webm?v=cc11" type="video/webm">
+          <source src="assets/clips/10-pensando.mp4?v=cc11" type="video/mp4">
+        </video></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="incluye">
+  <div class="wrap">
+    <p class="eyebrow center">El curso de Claude Code</p>
+    <h2 class="center">Lo que hay dentro del curso principal</h2>
+    <p class="lead center">4 secciones, de la instalación al flujo agéntico multi-proyecto, con 2 proyectos reales terminados y su código fuente.</p>
+
+    <div class="resumen-num">
+      <div class="num-card"><div class="num">61</div><div class="lbl">clases en video</div></div>
+      <div class="num-card"><div class="num">48</div><div class="lbl">archivos de apoyo</div></div>
+      <div class="num-card"><div class="num">2</div><div class="lbl">proyectos reales con código</div></div>
+    </div>
+
+    <div class="secciones">
+      <div class="seccion-card reveal">
+        <div class="icono-mini bg-durazno"><svg viewBox="0 0 24 24" fill="none" stroke="#BD5F3F" stroke-width="2"><path d="M4 17V7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg></div>
+        <div class="n">Sección 1 · 15 clases</div>
+        <h3>Introducción y primeros pasos</h3>
+        <p>Qué es Claude Code, instalación en distintos entornos, configuración, modelos de IA, manejo de sesiones y memoria, permisos, Git y el cheat sheet de atajos.</p>
+      </div>
+      <div class="seccion-card reveal">
+        <div class="icono-mini bg-salvia"><svg viewBox="0 0 24 24" fill="none" stroke="#3F6B46" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></div>
+        <div class="n">Sección 2 · 28 clases</div>
+        <h3>Funciones avanzadas y flujo agéntico</h3>
+        <p>Subagentes, skills propias, slash commands, hooks, servidores MCP, SQLite en React, feedback con Playwright y Agent Teams (orquestación multi-agente).</p>
+        <span class="proyecto-tag">+ código del proyecto de práctica</span>
+      </div>
+      <div class="seccion-card reveal">
+        <div class="icono-mini bg-lavanda"><svg viewBox="0 0 24 24" fill="none" stroke="#5B4F96" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+        <div class="n">Sección 3 · 16 clases</div>
+        <h3>Proyecto real: Inventrack (Next.js)</h3>
+        <p>Construyes una app de inventario de punta a punta con Next.js, guiado por Claude Code: planeación, especificaciones, UI, estado y conexión a datos.</p>
+        <span class="proyecto-tag">Código fuente incluido</span>
+      </div>
+      <div class="seccion-card reveal">
+        <div class="icono-mini bg-arena"><svg viewBox="0 0 24 24" fill="none" stroke="#8A6D3B" stroke-width="2"><path d="M12 3C8 6 6 9 6 12a6 6 0 0 0 12 0c0-3-2-6-6-9Z"/></svg></div>
+        <div class="n">Sección 4 · mini-proyecto (2 clases)</div>
+        <h3>Proyecto real: Recetas Semanales (.NET Blazor)</h3>
+        <p>Un mini-proyecto (2 clases) con otro stack (.NET Blazor), para ver a Claude Code adaptarse a un lenguaje y framework distintos.</p>
+        <span class="proyecto-tag">Código fuente incluido</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="por-que">
+  <div class="wrap">
+    <p class="eyebrow center">Por qué este curso</p>
+    <h2 class="center">De tutoriales sueltos a un camino con orden</h2>
+    <p class="lead center">Youtube suelto, prueba y error, código a medio entender. Acá es un camino con principio, orden y proyectos terminados.</p>
+
+    <!-- cc11-camino -->
+    <div class="clips clip-solo">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/08-camino-poster.webp?v=cc11" width="720" height="450" aria-label="Demo: tutoriales sueltos con errores se ordenan en un curso con secciones completadas">
+          <source src="assets/clips/08-camino.webm?v=cc11" type="video/webm">
+          <source src="assets/clips/08-camino.mp4?v=cc11" type="video/mp4">
+        </video></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="segundo-cerebro">
+  <div class="wrap">
+    <p class="eyebrow center">Lo que te llevas</p>
+    <h2 class="center">Tu segundo cerebro de desarrollador</h2>
+    <p class="lead center">Cada clase, cada archivo de apoyo y cada proyecto se conecta con el siguiente. No son videos sueltos: es una base de conocimiento que seguís usando después del curso.</p>
+
+    <!-- cc11-cerebro -->
+    <div class="clips clip-solo">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/09-cerebro-poster.webp?v=cc11" width="720" height="450" aria-label="Demo: una bóveda de notas conectadas; se busca cómo conectar la base de datos y se abre la clase de MCP">
+          <source src="assets/clips/09-cerebro.webm?v=cc11" type="video/webm">
+          <source src="assets/clips/09-cerebro.mp4?v=cc11" type="video/mp4">
+        </video></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="precio-wrap" id="precio">
+  <div class="wrap">
+    <p class="eyebrow center">Precio</p>
+    <h2 class="center">Un pago. Acceso a todo.</h2>
+    <div style="height:30px"></div>
+    <div class="precio-card">
+      <span class="tag">Pago único</span>
+      <div class="precio-monto"><sup>US$</sup>19.99</div>
+      <p class="precio-sub">Sin suscripción, sin cobros recurrentes</p>
+      <a class="btn" href="#STRIPE-PENDIENTE">Quiero mis clases ahora →</a>
+      <ul class="incluye-lista">
+        <li><span class="marca">✓&#xFE0E;</span> Curso completo de Claude Code (4 secciones, 61 videos)</li>
+        <li><span class="marca">✓&#xFE0E;</span> 48 archivos de apoyo: prompts, CLAUDE.md, especificaciones</li>
+        <li><span class="marca">✓&#xFE0E;</span> 2 proyectos reales con código fuente descargable</li>
+        <li><span class="marca">✓&#xFE0E;</span> Toda la Facultad de Programación de bono (ver abajo)</li>
+        <li><span class="marca">✓&#xFE0E;</span> Acceso de por vida + actualizaciones gratis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="bonos">
+  <div class="wrap">
+    <p class="eyebrow center">De regalo, por el mismo precio</p>
+    <h2 class="center">También te llevas toda la Facultad</h2>
+    <p class="lead center">El mismo pago incluye el resto del catálogo de UTEC Programación. Estos son los números reales de cada curso, sin inflar nada.</p>
+
+    <div class="bonos-grid" style="margin-top:34px">
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-durazno"><svg viewBox="0 0 24 24" fill="none" stroke="#BD5F3F" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v2H7V7a5 5 0 0 1 5-5Zm-5 9h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5Z"/></svg></div><span class="cifra">31 videos</span></div><h3>Python CERO a EXPERTO</h3><p>10 módulos: variables, estructuras de datos, condicionales, funciones, archivos y POO.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-salvia"><svg viewBox="0 0 24 24" fill="none" stroke="#3F6B46" stroke-width="2"><path d="M4 4h16v16H4V4Zm4 12 3-3-3-3m5 6h4"/></svg></div><span class="cifra">141 videos</span></div><h3>JavaScript</h3><p>15 módulos de fundamentos a JS moderno (ES6/ES7, clases, async/await) + 2 mini-proyectos.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-lavanda"><svg viewBox="0 0 24 24" fill="none" stroke="#5B4F96" stroke-width="2"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm9 0v5h5"/></svg></div><span class="cifra">35 guías PDF</span></div><h3>Java (guías maestras)</h3><p>Material de lectura a fondo, de variables a programación orientada a objetos. Sin video.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-arena"><svg viewBox="0 0 24 24" fill="none" stroke="#8A6D3B" stroke-width="2"><path d="M4 7 12 3l8 4-8 4-8-4Zm0 5 8 4 8-4m-16 5 8 4 8-4"/></svg></div><span class="cifra">54 videos</span></div><h3>HTML &amp; CSS</h3><p>8 módulos: fundamentos, multimedia, formularios, responsive y accesibilidad, con repo de ejemplo.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-durazno"><svg viewBox="0 0 24 24" fill="none" stroke="#BD5F3F" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><span class="cifra">51 videos</span></div><h3>SQL · Bases de datos</h3><p>8 módulos con un caso práctico real (base de datos de un cine) y sus archivos de ejercicio.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-salvia"><svg viewBox="0 0 24 24" fill="none" stroke="#3F6B46" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M2 12h3M19 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg></div><span class="cifra">29 videos</span></div><h3>IA con Python</h3><p>7 unidades: bases de machine learning, algoritmos clásicos, redes neuronales y proyecto final.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-lavanda"><svg viewBox="0 0 24 24" fill="none" stroke="#5B4F96" stroke-width="2"><path d="M4 17h4l9-9-4-4-9 9v4Zm9-11 4 4"/></svg></div><span class="cifra">1 video</span></div><h3>Algoritmia y lógica</h3><p>Repaso introductorio de lógica de programación desde cero, con su temario en PDF.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-arena"><svg viewBox="0 0 24 24" fill="none" stroke="#8A6D3B" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><span class="cifra">6 videos</span></div><h3>LinkedIn para empleo</h3><p>Estrategia de red y marca personal para buscar trabajo, con material de apoyo en PDF.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-durazno"><svg viewBox="0 0 24 24" fill="none" stroke="#BD5F3F" stroke-width="2"><path d="M4 20 20 4M4 4h6M4 4v6M20 20h-6M20 20v-6"/></svg></div><span class="cifra">53 videos</span></div><h3>Unity · videojuegos</h3><p>9 módulos: planeación, arte, motor de videojuego, programación, sonido y exportación, con assets.</p></div>
+
+      <div class="bono-card reveal"><div class="top"><div class="icono-mini bg-salvia"><svg viewBox="0 0 24 24" fill="none" stroke="#3F6B46" stroke-width="2"><path d="M4 19V5a1 1 0 0 1 1-1h7l2 3h5a1 1 0 0 1 1 1v3M4 19l4-6 3 3 4-5 6 8"/></svg></div><span class="cifra">23 videos</span></div><h3>Introducción a R</h3><p>5 módulos: variables, vectores y scripts para empezar en análisis de datos con R.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="eyebrow center">Preguntas frecuentes</p>
+    <h2 class="center">Lo que más preguntan</h2>
+    <div class="faq">
+      <details>
+        <summary>¿Necesito experiencia previa en programación?</summary>
+        <div class="r">No. El curso de Claude Code arranca desde qué es y cómo instalarlo, y avanza paso a paso hasta flujo agéntico, subagentes y orquestación multi-agente. Si nunca programaste, puedes empezar primero por los cursos de bono (Python, HTML&amp;CSS) y luego entrar al curso principal.</div>
+      </details>
+      <details>
+        <summary>¿Cómo recibo el acceso y por cuánto tiempo dura?</summary>
+        <div class="r">El acceso es inmediato después del pago y es de por vida: no es una suscripción ni hay que pagar de nuevo. Las actualizaciones que se agreguen al curso quedan incluidas sin costo extra.</div>
+      </details>
+      <details>
+        <summary>¿Qué incluye exactamente el pago de US$19.99?</summary>
+        <div class="r">El curso completo de Claude Code (4 secciones, 61 videos, 48 archivos de apoyo y 2 proyectos reales con código fuente) más el resto de la Facultad de Programación como bono: Python, JavaScript, Java, HTML&amp;CSS, SQL, IA con Python, Algoritmia, LinkedIn, Unity e Introducción a R.</div>
+      </details>
+      <details>
+        <summary>¿Qué pasa si tengo un problema con el acceso o el pago?</summary>
+        <div class="r">Escríbenos desde el botón de contacto y te ayudamos a resolverlo lo antes posible.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cierre">
+  <div class="wrap">
+    <svg class="chispa chispa-cierre" aria-hidden="true"><use href="#chispa-oficial"></use></svg>
+    <h2>Empieza a programar con IA hoy</h2>
+    <p class="lead center">Un pago único, acceso de por vida y toda la Facultad de bono.</p>
+    <div class="chips" style="margin-top:22px">
+      <span class="chip">Pago único</span>
+      <span class="chip">Acceso inmediato</span>
+      <span class="chip">De por vida</span>
+      <span class="chip">Actualizaciones gratis</span>
+    </div>
+    <a class="btn" href="#STRIPE-PENDIENTE">Quiero el curso · US$19.99 →</a>
+  </div>
+</section>
+
+<footer>
+  <p>UTEC Facultad de Programación · Curso de Claude Code. "Claude Code" se nombra solo como la herramienta que se enseña a usar; esta landing no está afiliada a Anthropic.</p>
+  <p>Curso independiente de UTEC. No afiliado a Anthropic. Claude es marca de Anthropic.</p>
+</footer>
+
+<script>
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reveal on scroll
+  var reveals = document.querySelectorAll('.reveal, .seccion-card, .bono-card, .ilus-cc5b');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('in-view'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  // Spinner "pensando" del terminal (frames reales del CLI de Claude Code, 120ms/frame)
+  var spinEl = document.getElementById('terminal-spin');
+  if (spinEl) {
+    if (reduced) {
+      spinEl.textContent = '✻';
+    } else {
+      var frames = ['·','✢\uFE0E','*','✶\uFE0E','✻\uFE0E','✽\uFE0E'];
+      var seq = frames.concat(frames.slice().reverse());
+      var t0 = performance.now();
+      (function tick(now){
+        spinEl.textContent = seq[Math.floor((now - t0) / 120) % seq.length];
+        requestAnimationFrame(tick);
+      })(t0);
+    }
+  }
+
+  // Ilustraciones Lottie (self-hosted, lazy): CodeTerminal en el hero, sprout en "Así se trabaja"
+  var ilustraciones = document.querySelectorAll('.ilustracion[data-lottie]');
+  if (ilustraciones.length) {
+    var lottieScriptPromise = null;
+    function cargarLottie(){
+      if (!lottieScriptPromise) {
+        lottieScriptPromise = new Promise(function(resolve, reject){
+          var s = document.createElement('script');
+          s.src = 'assets/lottie-light.min.js';
+          s.onload = resolve;
+          s.onerror = reject;
+          document.body.appendChild(s);
+        });
+      }
+      return lottieScriptPromise;
+    }
+    var ioL = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        ioL.unobserve(entry.target);
+        var el = entry.target;
+        cargarLottie().then(function(){
+          var anim = window.lottie.loadAnimation({
+            container: el,
+            renderer: 'svg',
+            loop: !reduced,
+            autoplay: !reduced,
+            path: el.getAttribute('data-lottie')
+          });
+          if (reduced) { anim.addEventListener('DOMLoaded', function(){ anim.goToAndStop(0, true); }); }
+        });
+      });
+    }, { threshold: 0.2, rootMargin: '200px' });
+    ilustraciones.forEach(function(el){ ioL.observe(el); });
+  }
+
+  // "Pensando..." typing demo
+  var promptEl = document.getElementById('pensando-prompt');
+  var pasosEl = document.getElementById('pensando-pasos');
+  if (promptEl && pasosEl) {
+    var texto = '> hazme una página de inicio de sesión y conéctala a mi API';
+    var pasos = pasosEl.querySelectorAll('li');
+
+    function mostrarPasosFinal(){
+      pasos.forEach(function(li){
+        li.querySelector('.txt').textContent = li.getAttribute('data-final');
+        li.classList.add('mostrar');
+      });
+    }
+
+    if (reduced) {
+      promptEl.textContent = texto;
+      mostrarPasosFinal();
+      return;
+    }
+
+    function escribir(el, str, i, cb){
+      if (i <= str.length) {
+        el.textContent = str.slice(0, i);
+        setTimeout(function(){ escribir(el, str, i + 1, cb); }, 28);
+      } else if (cb) { cb(); }
+    }
+
+    function revelarPasos(idx){
+      if (idx >= pasos.length) return;
+      var li = pasos[idx];
+      li.querySelector('.txt').textContent = li.getAttribute('data-final');
+      li.classList.add('mostrar');
+      setTimeout(function(){ revelarPasos(idx + 1); }, 650);
+    }
+
+    var arrancado = false;
+    function arrancar(){
+      if (arrancado) return;
+      arrancado = true;
+      promptEl.innerHTML = '';
+      var span = document.createElement('span');
+      promptEl.appendChild(span);
+      var cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      promptEl.appendChild(cursor);
+      escribir(span, texto, 0, function(){
+        setTimeout(function(){ revelarPasos(0); }, 400);
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io2 = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) { arrancar(); io2.disconnect(); }
+        });
+      }, { threshold: 0.4 });
+      io2.observe(document.getElementById('pensando'));
+    } else {
+      arrancar();
+    }
+  }
+})();
+</script>
+<script>
+/* cc6c-grilla-v2: play al entrar, pause al salir */
+(function(){var vs=document.querySelectorAll('.clips video');if(!('IntersectionObserver' in window)){return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else{v.pause()}})},{threshold:0.35});
+vs.forEach(function(v){io.observe(v)})})();
+</script>
+</body>
+</html>
