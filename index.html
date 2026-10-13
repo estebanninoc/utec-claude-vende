@@ -358,7 +358,7 @@ footer p+p{margin-top:8px}
       <span class="chip">De por vida</span>
       <span class="chip">Actualizaciones gratis</span>
     </div>
-    <a class="btn" href="#precio">Quiero el curso · US$19.99 →</a>
+    <a class="btn" href="#precio">ACCEDE AHORA · US$19.99 →</a>
     <span class="btn-note">Sin experiencia previa: desde cero hasta avanzado</span>
 
   </div>
@@ -575,15 +575,29 @@ footer p+p{margin-top:8px}
     <div style="height:30px"></div>
     <div class="precio-card">
       <span class="tag">Pago único</span>
+      <div style="display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 0 4px"><s style="font-family:var(--serif);font-size:22px;font-weight:500;color:var(--tinta-mut);text-decoration-thickness:2px">US$99.95</s><span style="background:var(--terracota);color:#fff;font-family:var(--sans);font-weight:700;font-size:12.5px;letter-spacing:.02em;border-radius:999px;padding:5px 11px;white-space:nowrap">80% OFF</span></div>
       <div class="precio-monto"><sup>US$</sup>19.99</div>
-      <p class="precio-sub">Sin suscripción, sin cobros recurrentes</p>
-      <a class="btn" href="#STRIPE-PENDIENTE">Quiero mis clases ahora →</a>
-      <ul class="incluye-lista">
-        <li><span class="marca">✓&#xFE0E;</span> Curso completo de Claude Code (4 secciones, 61 videos)</li>
-        <li><span class="marca">✓&#xFE0E;</span> 48 archivos de apoyo: prompts, CLAUDE.md, especificaciones</li>
-        <li><span class="marca">✓&#xFE0E;</span> 2 proyectos reales con código fuente descargable</li>
-        <li><span class="marca">✓&#xFE0E;</span> Toda la Facultad de Programación de bono (ver abajo)</li>
-        <li><span class="marca">✓&#xFE0E;</span> Acceso de por vida + actualizaciones gratis</li>
+      <p class="precio-sub" style="margin:6px 0 14px">Sin suscripción, sin cobros recurrentes</p>
+      <div id="reloj" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--crema2);border:1px solid var(--borde-2);border-radius:14px;padding:12px 16px;margin:0 auto 26px;max-width:300px"><span style="font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--tinta-mut);text-transform:uppercase;letter-spacing:.08em;text-align:center">El 80% OFF de hoy termina en</span><b id="reloj-d" style="font-family:var(--mono);font-weight:400;font-size:42px;line-height:1.05;color:var(--terracota-dark);font-variant-numeric:tabular-nums">--:--</b></div>
+      <a class="btn" href="https://wa.me/573132579097?text=QUIERO%20INFO%20CLAUDE" rel="noopener" data-buy="1">ACCEDE AHORA · US$19.99 →</a>
+      <ul class="incluye-lista" style="gap:8px;margin-top:22px">
+        <li><span class="marca">✓&#xFE0E;</span> 61 clases de Claude Code</li>
+        <li><span class="marca">✓&#xFE0E;</span> 2 proyectos con código</li>
+        <li><span class="marca">✓&#xFE0E;</span> 141 clases de JavaScript</li>
+        <li><span class="marca">✓&#xFE0E;</span> 63 clases de C++</li>
+        <li><span class="marca">✓&#xFE0E;</span> 54 clases de HTML y CSS</li>
+        <li><span class="marca">✓&#xFE0E;</span> 53 clases de Unity</li>
+        <li><span class="marca">✓&#xFE0E;</span> 51 clases de SQL</li>
+        <li><span class="marca">✓&#xFE0E;</span> 35 guías PDF de Java</li>
+        <li><span class="marca">✓&#xFE0E;</span> 31 clases de Python</li>
+        <li><span class="marca">✓&#xFE0E;</span> 29 clases de IA</li>
+        <li><span class="marca">✓&#xFE0E;</span> 23 clases de R</li>
+        <li><span class="marca">✓&#xFE0E;</span> 6 clases de LinkedIn</li>
+        <li><span class="marca">✓&#xFE0E;</span> 1 clase de algoritmia</li>
+        <li><span class="marca">✓&#xFE0E;</span> 513 clases en total</li>
+        <li><span class="marca">✓&#xFE0E;</span> 12 cursos, 1 solo enlace</li>
+        <li><span class="marca">✓&#xFE0E;</span> Acceso de por vida</li>
+        <li><span class="marca">✓&#xFE0E;</span> Actualizaciones gratis</li>
       </ul>
     </div>
   </div>
@@ -655,7 +669,7 @@ footer p+p{margin-top:8px}
       <span class="chip">De por vida</span>
       <span class="chip">Actualizaciones gratis</span>
     </div>
-    <a class="btn" href="#STRIPE-PENDIENTE">Quiero el curso · US$19.99 →</a>
+    <a class="btn" href="https://wa.me/573132579097?text=QUIERO%20INFO%20CLAUDE" rel="noopener" data-buy="1">ACCEDE AHORA · US$19.99 →</a>
   </div>
 </section>
 
@@ -804,6 +818,27 @@ footer p+p{margin-top:8px}
 (function(){var vs=document.querySelectorAll('.clips video');if(!('IntersectionObserver' in window)){return}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else{v.pause()}})},{threshold:0.35});
 vs.forEach(function(v){io.observe(v)})})();
+</script>
+<script>
+/* RELOJ DE 15 MIN — molde de melamina/motos/carros: la cuenta vive en sessionStorage,
+   asi que un F5 NO la reinicia (sesion nueva si). Si este bloque muriera, el boton
+   sigue llevando a WhatsApp: el href va escrito en el HTML, no lo pone el JS. */
+(function(){
+  var e=document.getElementById('reloj-d');
+  if(!e) return;
+  var MIN=15, KEY='ccDeadline15', fin;
+  try{ fin=parseInt(sessionStorage.getItem(KEY),10); }catch(x){}
+  if(!fin||isNaN(fin)||fin<Date.now()||(fin-Date.now())>MIN*60000){
+    fin=Date.now()+MIN*60000;
+    try{ sessionStorage.setItem(KEY,fin); }catch(x){}
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+  function tic(){
+    var s=Math.floor(Math.max(0,fin-Date.now())/1000);
+    e.textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+  }
+  tic(); setInterval(tic,1000);
+})();
 </script>
 </body>
 </html>
