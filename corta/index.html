@@ -220,6 +220,11 @@ header.hero{
 .resumen-num .lbl{font-size:13px;color:var(--tinta-mut);font-weight:600}
 
 .secciones{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* ---------- secciones compactas V1 (obra claude-corta-compacta) ---------- */
+.secciones-filas{max-width:560px;margin:0 auto}                    /* el <ul> hereda .incluye-lista (flex col, gap 11px): solo se le pone ancho de lectura y se centra */
+.secciones-filas li{align-items:center;color:var(--tinta)}         /* .incluye-lista li es align-items normal y color mut: el titulo es titulo, no nota al pie */
+.secciones-filas li .chip{flex:0 0 auto;min-width:90px;justify-content:center;font-family:var(--mono)} /* el .chip es inline-flex: sin flex:0 0 auto se encoge; min-width alinea los 4 titulos en columna */
+
 .seccion-card{
   background:#fff;border:1px solid var(--borde);border-radius:24px;padding:32px;
   opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;
@@ -505,6 +510,51 @@ footer p+p{margin-top:8px}
   </div>
 </section>
 
+<section class="pensando-wrap" id="pensando">
+  <div class="wrap">
+    <p class="eyebrow center">Así se trabaja en el curso</p>
+    <h2 class="center">Le hablas en español. Claude Code piensa, decide y construye</h2>
+    <p class="lead center">No memorizas sintaxis a ciegas: aprendes a dirigir un agente que planea los pasos, edita los archivos y te explica por qué.</p>
+
+    <!-- cc11-pensando -->
+    <div class="clips clip-solo">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/10-pensando-poster.webp?v=cc11" width="720" height="450" aria-label="Demo: Claude Code en tema claro recibe un pedido en español, edita el login, pasa las pruebas y la vista previa muestra el login funcionando">
+          <source src="assets/clips/10-pensando.webm?v=cc11" type="video/webm">
+          <source src="assets/clips/10-pensando.mp4?v=cc11" type="video/mp4">
+        </video></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="construir">
+  <div class="wrap">
+    <p class="eyebrow center">Antes de empezar</p>
+    <h2 class="center">Qué vas a construir</h2>
+    <p class="lead center">Cada clase suma una capa real sobre la anterior: interfaz, código, datos y el servidor que lo sirve. Al final tienes una app completa, no un ejercicio suelto.</p>
+
+    <!-- cc11-construir -->
+    <div class="clips clip-solo">
+      <figure class="clip">
+        <div class="clip-win"><div class="clip-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <video muted loop playsinline preload="none" poster="assets/clips/07-construir-poster.webp?v=cc11" width="720" height="450" aria-label="Demo: una app se arma por capas (servidor, datos, código e interfaz) y termina en una tienda que recibe un pedido">
+          <source src="assets/clips/07-construir.webm?v=cc11" type="video/webm">
+          <source src="assets/clips/07-construir.mp4?v=cc11" type="video/mp4">
+        </video></div>
+      </figure>
+    </div>
+
+    <div class="chips" style="margin-top:30px">
+      <span class="chip">Interfaz</span>
+      <span class="chip">Código</span>
+      <span class="chip">Base de datos</span>
+      <span class="chip">Servidor</span>
+    </div>
+  </div>
+</section>
+
 <section id="incluye">
   <div class="wrap">
     <p class="eyebrow center">El curso principal</p>
@@ -514,28 +564,12 @@ footer p+p{margin-top:8px}
       <div class="num-card"><div class="num">48</div><div class="lbl">archivos de apoyo</div></div>
       <div class="num-card"><div class="num">2</div><div class="lbl">proyectos reales con código</div></div>
     </div>
-    <div class="secciones">
-      <div class="seccion-card reveal">
-        <div class="icono-mini bg-durazno"><svg viewBox="0 0 24 24" fill="none" stroke="#BD5F3F" stroke-width="2"><path d="M4 17V7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg></div>
-        <div class="n">Sección 1 · 15 clases</div>
-        <h3>Instalas Claude Code y das tus primeros pasos</h3>
-      </div>
-      <div class="seccion-card reveal">
-        <div class="icono-mini bg-salvia"><svg viewBox="0 0 24 24" fill="none" stroke="#3F6B46" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></div>
-        <div class="n">Sección 2 · 28 clases</div>
-        <h3>Pones varios agentes a trabajar en paralelo</h3>
-      </div>
-      <div class="seccion-card reveal">
-        <div class="icono-mini bg-lavanda"><svg viewBox="0 0 24 24" fill="none" stroke="#5B4F96" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
-        <div class="n">Sección 3 · 16 clases</div>
-        <h3>Construyes una app de inventario completa</h3>
-      </div>
-      <div class="seccion-card reveal">
-        <div class="icono-mini bg-arena"><svg viewBox="0 0 24 24" fill="none" stroke="#8A6D3B" stroke-width="2"><path d="M12 3C8 6 6 9 6 12a6 6 0 0 0 12 0c0-3-2-6-6-9Z"/></svg></div>
-        <div class="n">Sección 4 · 2 clases</div>
-        <h3>Repites el proyecto en otro lenguaje</h3>
-      </div>
-    </div>
+    <ul class="incluye-lista secciones-filas">
+      <li><span class="chip">15 clases</span><span>Instalas Claude Code y das tus primeros pasos</span></li>
+      <li><span class="chip">28 clases</span><span>Pones varios agentes a trabajar en paralelo</span></li>
+      <li><span class="chip">16 clases</span><span>Construyes una app de inventario completa</span></li>
+      <li><span class="chip">2 clases</span><span>Repites el proyecto en otro lenguaje</span></li>
+    </ul>
     <div style="text-align:center;margin-top:34px"><a class="btn" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA · <span data-total>US$19.99</span> →</a></div>
   </div>
 </section>
