@@ -331,6 +331,27 @@ footer p+p{margin-top:8px}
 .clip figcaption{margin-top:8px;font-size:12px;line-height:1.3;color:var(--tinta)}
 .clip-sec{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--terracota-dark);margin-bottom:1px}
 @media (min-width:768px){.clips{gap:22px}.clip-win{border-radius:14px;padding:0 6px 6px}.clip-bar{height:24px;gap:6px;padding-left:6px}.clip-bar i{width:9px;height:9px}.clip video{border-radius:8px}.clip figcaption{font-size:15px;margin-top:12px}.clip-sec{font-size:12px}}
+
+/* ---------- barra fija de compra · clear glass (ORDEN Esteban 2026-10-13) ----------
+   Molde de motos/carros/melamina: en MOVIL (<=820px) la barra vive abajo y solo
+   aparece cuando NI el boton del hero NI el de la caja de precio estan en pantalla,
+   para no tapar nunca el boton real. En escritorio no existe: ahi la pagina es corta
+   y el boton de la caja se alcanza con un scroll.
+   Esta landing es CREMA, no negra como motos: el vidrio va en crema translucida
+   (rgba sobre --crema) con blur+saturate, no en negro, o se ve como un parche. */
+.buybar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+  align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(250,249,245,.72);
+  -webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);
+  border-top:1px solid var(--borde);box-shadow:0 -10px 30px -20px rgba(20,20,19,.45);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.buybar .p{font-family:var(--mono);font-weight:700;font-size:17px;line-height:1.15;color:var(--tinta)}
+.buybar .p small{display:block;margin-top:3px;font-family:var(--sans);font-weight:500;font-size:11.5px;color:var(--tinta-mut);white-space:nowrap}
+/* a <=360px no cabe la frase entera al lado del boton: ahi se queda el sello corto */
+@media (max-width:430px){.buybar .p small .larga{display:none}}
+.buybar .btn{flex-shrink:0;height:42px;padding:8px 20px;font-size:14.5px}
+/* el pie se levanta lo que mide la barra, o la barra le come la ultima linea */
+@media (max-width:820px){.buybar{display:flex}footer{padding-bottom:calc(86px + env(safe-area-inset-bottom))}}
 </style>
 <script>
 /* PIXEL PROPIO DE CLAUDE CODE · obra cobro-total-autorizado, 14-oct-2026.
@@ -399,7 +420,7 @@ fbq('track','PageView');
       <span class="chip">De por vida</span>
       <span class="chip">Actualizaciones gratis</span>
     </div>
-    <a class="btn" href="#precio">ACCEDE AHORA · <span data-total>US$19.99</span> →</a>
+    <a class="btn" id="btn-hero" href="#precio">ACCEDE AHORA · <span data-total>US$19.99</span> →</a>
     <span class="btn-note">Sin experiencia previa: desde cero hasta avanzado</span>
 
   </div>
@@ -477,7 +498,6 @@ fbq('track','PageView');
         <div class="ok">✓&#xFE0E; Listo. Tests pasando. <span class="cursor"></span></div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:34px"><a class="btn" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA · <span data-total>US$19.99</span> →</a></div>
   </div>
 </section>
 
@@ -540,7 +560,7 @@ fbq('track','PageView');
       </div>
 
       <p class="precio-sub" style="margin:18px 0 14px;font-weight:700">Total hoy: <b data-total style="font-family:var(--mono);color:var(--terracota-dark)">US$19.99</b></p>
-      <a class="btn" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA · <span data-total>US$19.99</span> →</a>
+      <a class="btn" id="btn-pago" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA · <span data-total>US$19.99</span> →</a>
       <span class="btn-note">Pago único. Acceso inmediato. De por vida.</span>
     </div>
   </div>
@@ -606,7 +626,6 @@ fbq('track','PageView');
       <li><span class="chip">16 clases</span><span>Construyes una app de inventario completa</span></li>
       <li><span class="chip">2 clases</span><span>Repites el proyecto en otro lenguaje</span></li>
     </ul>
-    <div style="text-align:center;margin-top:34px"><a class="btn" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA · <span data-total>US$19.99</span> →</a></div>
   </div>
 </section>
 
@@ -653,7 +672,6 @@ fbq('track','PageView');
         <div class="r">Nos escribes por WhatsApp y te lo resolvemos.</div>
       </details>
     </div>
-    <div style="text-align:center;margin-top:34px"><a class="btn" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA · <span data-total>US$19.99</span> →</a></div>
   </div>
 </section>
 
@@ -663,6 +681,31 @@ fbq('track','PageView');
   <p>Curso independiente de UTEC. No afiliado a Anthropic. Claude es marca de Anthropic.</p>
   <p>¿Dudas antes de comprar? <a href="https://wa.me/573132579097?text=QUIERO%20INFO%20CLAUDE" rel="noopener">Escríbenos por WhatsApp</a> · es soporte, no es el camino de pago.</p>
 </footer>
+
+<div class="buybar" id="buybar">
+  <div class="p"><span data-total>US$19.99</span><small>✅ pago único<span class="larga"> · acceso inmediato</span></small></div>
+  <a class="btn" href="https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419" rel="noopener" data-buy="1">ACCEDE AHORA →</a>
+</div>
+
+<script>
+/* Centinela de la barra fija. Copiado del molde de moto-data.pro: la barra se
+   ESCONDE cuando el boton del hero o el boton de la caja de precio estan en
+   pantalla (no la seccion entera: la seccion mide mas de una pantalla y dejaba
+   tramos sin CTA). Si no hay IntersectionObserver, la barra queda puesta. */
+(function(){
+  var bar=document.getElementById('buybar');
+  var c=document.getElementById('btn-pago');
+  var h=document.getElementById('btn-hero');
+  var enPrecio=false,enHero=true;
+  function pinta(){ bar.style.display=(enPrecio||enHero)?'none':''; }
+  pinta();
+  if('IntersectionObserver' in window){
+    if(c) new IntersectionObserver(function(en){ enPrecio=en[0].isIntersecting; pinta(); }).observe(c);
+    if(h) new IntersectionObserver(function(en){ enHero=en[0].isIntersecting; pinta(); }).observe(h);
+  }else{ bar.style.display=''; }
+})();
+</script>
+
 
 <script>
 (function(){
