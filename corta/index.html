@@ -701,31 +701,99 @@ fbq('track','PageView');
 </div>
 
 <script>
-/* Centinela de la barra fija. Copiado del molde de moto-data.pro: la barra se
-   ESCONDE cuando el boton del hero o el boton de la caja de precio estan en
-   pantalla (no la seccion entera: la seccion mide mas de una pantalla y dejaba
-   tramos sin CTA). Si no hay IntersectionObserver, la barra queda puesta. */
+/* Centinela de la barra fija. Molde de moto-data.pro, con dos arreglos de la
+   obra buybar-subida (14-oct-2026): la barra tardaba en reaparecer al SUBIR.
+   Medido en chromium 390x844 sobre el ejemplar de antes: la clase tardaba
+   150ms fijos en caerse (120px a dedo lento, 606px a manotazo) y la barra no
+   estaba del todo puesta hasta 351ms (1.398px a manotazo), con 1.172-1.738px
+   de subida sin barra. Las dos causas y sus curas:
+
+   1) EL ESTADO SALIA DE UN SOLO SENSOR. Solo lo movia IntersectionObserver, y
+      en Safari iOS los callbacks de IO se difieren mientras el scroll corre
+      por inercia: el dedo ya se solto, la pagina sigue andando y la barra no
+      vuelve hasta que todo se frena. Ahora la verdad la pone la GEOMETRIA leida
+      en cada frame de scroll (listener `passive`, coalescido en rAF). Los
+      eventos de scroll SI se disparan durante el momentum. El IO queda de
+      RESPALDO para la geometria que cambia sin scroll (una imagen que carga y
+      empuja la caja de precio), nunca como unica fuente.
+
+   2) EL CTA TAPABA POR ROZAR UN PIXEL. La regla vieja escondia la barra si el
+      CTA tocaba la pantalla, asi que subiendo btn-pago entraba por ARRIBA y no
+      dejaba de contar hasta salir por ABAJO: 892px de subida con la barra
+      escondida mientras el boton real estaba a media pantalla del pulgar.
+      El unico requisito escrito de esconderse es "no tapar nunca el boton
+      real", y la barra solo puede tapar lo que esta DEBAJO de ella. Asi que
+      la franja no es una fraccion inventada: se deriva de la ALTURA REAL de
+      la barra mas un respiro (RESPIRO px). El CTA cuenta mientras se mete en
+      esa franja, no por rozar la pantalla.
+
+   La histeresis de 140ms se fue: costaba 150ms de demora medidos y a un
+   manotazo de 6.000px/s eso son 606px de pagina sin barra. El pestañeo lo
+   para ahora un margen en PIXELES (Schmitt: la franja se agranda 28px
+   mientras la barra esta escondida), que no cuesta ni un milisegundo.
+   Sigue conmutando por CLASE (transform+opacity, en el compositor), nunca por
+   `display`. Sin IntersectionObserver la barra igual funciona: la mueve el
+   scroll. Sin JS, queda puesta. */
 (function(){
   var bar=document.getElementById('buybar');
-  var c=document.getElementById('btn-pago');
-  var h=document.getElementById('btn-hero');
-  var enPrecio=false,enHero=true;
-  /* Se conmuta por CLASE (transform+opacity, en el compositor), nunca por el
-     `display` inline del elemento. Histeresis de 140ms CANCELABLE y solo al APARECER: si el
-     CTA vuelve a entrar en pantalla antes de que venza, la barra no asoma y no
-     hay pestañeo. Esconder es inmediato. */
-  var t=null;
-  function pinta(){
-    var tapar=(enPrecio||enHero);
-    if(t){ clearTimeout(t); t=null; }
-    if(tapar){ bar.classList.add('oculta'); return; }
-    t=setTimeout(function(){ t=null; bar.classList.remove('oculta'); },140);
+  if(!bar) return;
+  var ctas=[document.getElementById('btn-hero'),
+            document.getElementById('btn-pago')].filter(Boolean);
+
+  var RESPIRO=120;  /* px de aire sobre la barra: el CTA ya cuenta desde ahi */
+  var SLACK=28;     /* margen anti-pestañeo, en px, solo mientras esta escondida */
+  var ALTO_SUPUESTO=86;  /* por si la barra mide 0 (display:none en escritorio) */
+  var tapando=null;
+
+  function disputa(){
+    var vh=window.innerHeight||document.documentElement.clientHeight||0;
+    /* La altura NO cambia con el translateY de `.oculta`, asi que se puede
+       leer este con la barra escondida y sigue siendo la de verdad. */
+    var alto=bar.getBoundingClientRect().height||ALTO_SUPUESTO;
+    /* Schmitt: escondida, la franja se agranda SLACK por arriba y por abajo,
+       asi que hace falta mover 28px de verdad para que conmute. Puesta, la
+       franja es la justa. Un borde para entrar y otro para salir. */
+    var techo=vh-(alto+RESPIRO)-(tapando?SLACK:0);
+    var piso=vh+(tapando?SLACK:0);
+    for(var i=0;i<ctas.length;i++){
+      var r=ctas[i].getBoundingClientRect();
+      if(r.bottom>techo && r.top<piso) return true;
+    }
+    return false;
   }
-  bar.classList.add('oculta');
-  if('IntersectionObserver' in window){
-    if(c) new IntersectionObserver(function(en){ enPrecio=en[0].isIntersecting; pinta(); }).observe(c);
-    if(h) new IntersectionObserver(function(en){ enHero=en[0].isIntersecting; pinta(); }).observe(h);
-  }else{ bar.classList.remove('oculta'); }
+
+  function pinta(){
+    var t=disputa();
+    if(t===tapando) return;               /* nada cambio: no se toca el DOM */
+    tapando=t;
+    if(t) bar.classList.add('oculta');
+    else  bar.classList.remove('oculta');
+  }
+
+  /* Un solo recalculo por frame, aunque lleguen 60 eventos de scroll. */
+  var pedido=false;
+  function pedir(){
+    if(pedido) return;
+    pedido=true;
+    requestAnimationFrame(function(){ pedido=false; pinta(); });
+  }
+
+  addEventListener('scroll',pedir,{passive:true});
+  addEventListener('resize',pedir,{passive:true});
+  addEventListener('orientationchange',pedir,{passive:true});
+
+  pinta();  /* estado real YA, antes de cualquier sensor: si lo de abajo
+               revienta, la barra igual nace bien y el scroll la sigue
+               moviendo. El orden importa -- medido en banco_io_diferido. */
+
+  /* Respaldo, y por eso va en try: un IO ausente o roto no puede llevarse
+     puesto al centinela entero. */
+  try{
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(pedir,{threshold:0});
+      for(var k=0;k<ctas.length;k++) io.observe(ctas[k]);
+    }
+  }catch(e){}
 })();
 </script>
 
