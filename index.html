@@ -327,6 +327,42 @@ footer p+p{margin-top:8px}
 .clip-sec{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--terracota-dark);margin-bottom:1px}
 @media (min-width:768px){.clips{gap:22px}.clip-win{border-radius:14px;padding:0 6px 6px}.clip-bar{height:24px;gap:6px;padding-left:6px}.clip-bar i{width:9px;height:9px}.clip video{border-radius:8px}.clip figcaption{font-size:15px;margin-top:12px}.clip-sec{font-size:12px}}
 </style>
+<script>
+/* PIXEL PROPIO DE CLAUDE CODE · obra cobro-total-autorizado, 14-oct-2026.
+   Dataset 1097629026355391 "UTEC - Claude Code", creado para ESTE curso. NO se usa el de
+   CapCut / melamina / Gamebox: mezclar productos en un dataset le ensucia la optimizacion
+   al que ya vende (es la misma razon por la que motos y carros tienen uno cada uno).
+   MOLDE: copiado del HTML SERVIDO de las landings que SI venden (carros rapida/ y
+   edicion-pro.com): init + PageView + InitiateCheckout en el click de compra.
+   El guardia PIXEL_ID_PENDIENTE queda: si alguien borra el id, no se carga fbevents.js
+   en vez de inicializar un pixel vacio.
+   value/currency: se reporta en USD, que es la moneda BASE del price de Stripe. Las
+   monedas locales de la pantalla salen de currency_options del MISMO price, asi que el
+   USD es el denominador comun y no hay doble conversion.
+   REVERSA DE 1 LINEA: borrar este bloque <script> (nada mas lo referencia). */
+var PIXEL_ID='1097629026355391';
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+if(PIXEL_ID!=='PIXEL_ID_PENDIENTE'){t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init',PIXEL_ID);
+fbq('track','PageView');
+(function(){
+  /* precio en USD segun el estado del order bump, leido del MISMO flag que pinta la
+     pantalla (window.__bumpOn). Sin bump: 19.99. Con bump: 19.99 + 9.99 = 29.98. */
+  function usd(){ return window.__bumpOn ? 29.98 : 19.99; }
+  function ids(){ return window.__bumpOn ? ['curso-claude-code','pack-premium'] : ['curso-claude-code']; }
+  fbq('track','ViewContent',{content_name:'CURSO CLAUDE CODE · UTEC',
+    content_type:'product', content_ids:ids(), value:usd(), currency:'USD'});
+  document.addEventListener('click',function(ev){
+    var a = ev.target.closest ? ev.target.closest('[data-buy]') : null;
+    if(a){ fbq('track','InitiateCheckout',{content_name:'CURSO CLAUDE CODE · UTEC',
+      content_type:'product', content_ids:ids(), value:usd(), currency:'USD'}); }
+  },true);
+})();
+</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
