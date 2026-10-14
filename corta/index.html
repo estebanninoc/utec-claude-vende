@@ -144,7 +144,7 @@ header.hero{
 .btn{
   display:inline-flex;align-items:center;gap:10px;justify-content:center;
   background:var(--terracota-dark);color:#FFFFFF;font-weight:500;font-size:15px;line-height:1;
-  font-family:var(--sans);border:none;border-radius:8px;height:40px;padding:8px 24px;text-decoration:none;
+  font-family:var(--sans);border:none;border-radius:999px;height:40px;padding:8px 24px;text-decoration:none;
   box-shadow:0 0 0 0 var(--terracota-dark);
   transition:color .1s ease-in-out, background-color .2s ease-in-out, box-shadow .2s ease-in-out;
 }
@@ -341,6 +341,14 @@ footer p+p{margin-top:8px}
    (rgba sobre --crema) con blur+saturate, no en negro, o se ve como un parche. */
 .buybar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
   align-items:center;justify-content:space-between;gap:14px;
+  /* La barra NO se esconde con display: eso no es animable y relayoutea
+     la pagina entera en cada conmutacion (era el parpadeo). Queda siempre
+     presente y se va DESLIZANDO por transform+opacity, que el compositor
+     resuelve en su propia capa sin tocar el layout. `display` lo maneja
+     solo la media query de abajo; el JS no lo toca nunca mas. */
+  transform:translateY(0);opacity:1;
+  will-change:transform,opacity;contain:layout;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),opacity .18s linear;
   background:rgba(250,249,245,.72);
   -webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);
   border-top:1px solid var(--borde);box-shadow:0 -10px 30px -20px rgba(20,20,19,.45);
@@ -350,6 +358,11 @@ footer p+p{margin-top:8px}
 /* a <=360px no cabe la frase entera al lado del boton: ahi se queda el sello corto */
 @media (max-width:430px){.buybar .p small .larga{display:none}}
 .buybar .btn{flex-shrink:0;height:42px;padding:8px 20px;font-size:14.5px}
+/* escondida = corrida fuera de pantalla por transform, NO por display.
+   110% y no 100% para que salga tambien el borde y la sombra de arriba.
+   pointer-events:none para que no capture toques mientras se desliza. */
+.buybar.oculta{transform:translateY(110%);opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.buybar{transition:none}}
 /* el pie se levanta lo que mide la barra, o la barra le come la ultima linea */
 @media (max-width:820px){.buybar{display:flex}footer{padding-bottom:calc(86px + env(safe-area-inset-bottom))}}
 </style>
@@ -377,8 +390,8 @@ fbq('init',PIXEL_ID);
 fbq('track','PageView');
 (function(){
   /* precio en USD segun el estado del order bump, leido del MISMO flag que pinta la
-     pantalla (window.__bumpOn). Sin bump: 19.99. Con bump: 19.99 + 9.99 = 29.98. */
-  function usd(){ return window.__bumpOn ? 29.98 : 19.99; }
+     pantalla (window.__bumpOn). Sin bump: 19.99. Con bump: 19.99 + 4.99 = 24.98. */
+  function usd(){ return window.__bumpOn ? 24.98 : 19.99; }
   function ids(){ return window.__bumpOn ? ['curso-claude-code','pack-premium'] : ['curso-claude-code']; }
   fbq('track','ViewContent',{content_name:'CURSO CLAUDE CODE · UTEC',
     content_type:'product', content_ids:ids(), value:usd(), currency:'USD'});
@@ -547,7 +560,7 @@ fbq('track','PageView');
           <input type="checkbox" id="bump-chk" style="width:20px;height:20px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--terracota);cursor:pointer">
           <span>
             <b style="font-family:var(--sans);font-size:14.5px;display:block;line-height:1.35">🎁 PACK PREMIUM DE PROMPTS + AGENTES IA</b>
-            <span class="precio-sub" style="display:block;margin:3px 0 0">Agrégalo por <span data-pr="pack">US$9.99</span> más. Solo con el curso.</span>
+            <span class="precio-sub" style="display:block;margin:3px 0 0">Agrégalo por <s style="color:var(--tinta-mut);text-decoration-thickness:2px"><span data-pr="ancla_bump">US$12.49</span></s> <b style="font-family:var(--sans)"><span data-pr="pack">US$4.99</span></b> más <span style="background:var(--terracota);color:#fff;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.02em;border-radius:999px;padding:3px 8px;white-space:nowrap">60% OFF</span>. Solo con el curso.</span>
           </span>
         </label>
         <ul class="incluye-lista" style="gap:6px;margin:12px 0 0">
@@ -697,12 +710,22 @@ fbq('track','PageView');
   var c=document.getElementById('btn-pago');
   var h=document.getElementById('btn-hero');
   var enPrecio=false,enHero=true;
-  function pinta(){ bar.style.display=(enPrecio||enHero)?'none':''; }
-  pinta();
+  /* Se conmuta por CLASE (transform+opacity, en el compositor), nunca por el
+     `display` inline del elemento. Histeresis de 140ms CANCELABLE y solo al APARECER: si el
+     CTA vuelve a entrar en pantalla antes de que venza, la barra no asoma y no
+     hay pestañeo. Esconder es inmediato. */
+  var t=null;
+  function pinta(){
+    var tapar=(enPrecio||enHero);
+    if(t){ clearTimeout(t); t=null; }
+    if(tapar){ bar.classList.add('oculta'); return; }
+    t=setTimeout(function(){ t=null; bar.classList.remove('oculta'); },140);
+  }
+  bar.classList.add('oculta');
   if('IntersectionObserver' in window){
     if(c) new IntersectionObserver(function(en){ enPrecio=en[0].isIntersecting; pinta(); }).observe(c);
     if(h) new IntersectionObserver(function(en){ enHero=en[0].isIntersecting; pinta(); }).observe(h);
-  }else{ bar.style.display=''; }
+  }else{ bar.classList.remove('oculta'); }
 })();
 </script>
 
@@ -872,14 +895,16 @@ vs.forEach(function(v){io.observe(v)})})();
 <script>
 /* ORDER BUMP (obra claude-code-reorden, 14-oct-2026).
    Aritmetica: el bot cobra el curso a $30.000 COP y curso+pack a $45.000 (+50%).
-   La pagina publica va en dolares: 19.99 + 50% = 9.99 mas  =>  total 29.98.
+   La pagina publica YA NO espeja ese +50%: desde el 14-oct-2026 el bump es
+   US$4.99 (4.99 sobre 19.99 = +25%)  =>  total 24.98. Los numeros en moneda local
+   NO salen de un porcentaje: se copian de los currency_options del price.
    Si este bloque muriera, el boton sigue llevando a WhatsApp con el disparador
    base: el href va escrito en el HTML, no lo pone el JS. */
 (function(){
   var chk = document.getElementById('bump-chk');
   if (!chk) return;
-  var TOT = { off: 'US$19.99', on: 'US$29.98' };
-  var PAY = { off: 'https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419', on: 'https://buy.stripe.com/bJebJ11nDgktgElaoN4Vy01?locale=es-419' };
+  var TOT = { off: 'US$19.99', on: 'US$24.98' };
+  var PAY = { off: 'https://buy.stripe.com/7sY3cv2rH9W54VD40p4Vy00?locale=es-419', on: 'https://buy.stripe.com/4gM9AT4zP4BL5ZHbsR4Vy03?locale=es-419' };
   // PROHIBIDO nacer marcado: el navegador restaura el estado del checkbox al F5,
   // asi que se fuerza desmarcado en cada carga antes de pintar nada.
   chk.checked = false;
@@ -902,14 +927,14 @@ vs.forEach(function(v){io.observe(v)})})();
 <script>
 /* MONEDA LOCAL · obra cursos_checkout, 14-oct-2026.
    TAB se COPIO valor por valor de los currency_options de los price de Stripe
-   price_1UQI86EIe4fow2roJBmrdNBZ (curso) y price_1UQI86EIe4fow2roCcuatwAo (pack): son los MISMOS
+   price_1UQI86EIe4fow2roJBmrdNBZ (curso) y price_1UQJkSEIe4fow2ro43jfz0nH (pack): son los MISMOS
    numeros que cobra el checkout, NO una conversion por TRM. Zona horaria que
    no este en TZ2CC (p.ej. Europe/Madrid) se queda en USD, que es la moneda
    base del price. Si este bloque muere, el HTML ya trae USD escrito. */
 (function(){
-  var TAB={"ARS": {"a": 169500.0, "c": 33900.0, "p": 16900.0, "t": 50800.0}, "BOB": {"a": 1300.0, "c": 259.0, "p": 129.0, "t": 388.0}, "BRL": {"a": 540.0, "c": 107.99, "p": 53.99, "t": 161.98}, "CLP": {"a": 99500.0, "c": 19900, "p": 9900, "t": 29800}, "COP": {"a": 344500.0, "c": 68900.0, "p": 33900.0, "t": 102800.0}, "CRC": {"a": 50000.0, "c": 9990.0, "p": 4990.0, "t": 14980.0}, "DOP": {"a": 6100.0, "c": 1219.0, "p": 609.0, "t": 1828.0}, "GTQ": {"a": 810.0, "c": 161.99, "p": 79.99, "t": 241.98}, "HNL": {"a": 2900.0, "c": 579.0, "p": 289.0, "t": 868.0}, "MXN": {"a": 1850.0, "c": 369.0, "p": 179.0, "t": 548.0}, "NIO": {"a": 3900.0, "c": 779.0, "p": 389.0, "t": 1168.0}, "PEN": {"a": 360.0, "c": 71.99, "p": 35.99, "t": 107.98}, "PYG": {"a": 629500.0, "c": 125900, "p": 62900, "t": 188800}, "UYU": {"a": 4300.0, "c": 859.0, "p": 429.0, "t": 1288.0}};
+  var TAB={"ARS": {"a": 169500.0, "ap": 21250, "c": 33900.0, "p": 8490.0, "t": 42390.0}, "BOB": {"a": 1300.0, "ap": 162.3, "c": 259.0, "p": 64.9, "t": 323.9}, "BRL": {"a": 540.0, "ap": 67.49, "c": 107.99, "p": 26.99, "t": 134.98}, "CLP": {"a": 99500.0, "ap": 12250, "c": 19900, "p": 4900, "t": 24800}, "COP": {"a": 344500.0, "ap": 42250, "c": 68900.0, "p": 16900.0, "t": 85800.0}, "CRC": {"a": 50000.0, "ap": 6250, "c": 9990.0, "p": 2490.0, "t": 12480.0}, "DOP": {"a": 6100.0, "ap": 750, "c": 1219.0, "p": 299.0, "t": 1518.0}, "GTQ": {"a": 810.0, "ap": 99.99, "c": 161.99, "p": 39.99, "t": 201.98}, "HNL": {"a": 2900.0, "ap": 375, "c": 579.0, "p": 149.0, "t": 728.0}, "MXN": {"a": 1850.0, "ap": 225, "c": 369.0, "p": 89.0, "t": 458.0}, "NIO": {"a": 3900.0, "ap": 500, "c": 779.0, "p": 199.0, "t": 978.0}, "PEN": {"a": 360.0, "ap": 44.99, "c": 71.99, "p": 17.99, "t": 89.98}, "PYG": {"a": 629500.0, "ap": 74750, "c": 125900, "p": 29900, "t": 155800}, "UYU": {"a": 4300.0, "ap": 550, "c": 859.0, "p": 219.0, "t": 1078.0}};
   var TZ2CC={"America/Bogota": "CO", "America/Mexico_City": "MX", "America/Cancun": "MX", "America/Merida": "MX", "America/Monterrey": "MX", "America/Matamoros": "MX", "America/Chihuahua": "MX", "America/Ciudad_Juarez": "MX", "America/Ojinaga": "MX", "America/Hermosillo": "MX", "America/Mazatlan": "MX", "America/Bahia_Banderas": "MX", "America/Tijuana": "MX", "America/Lima": "PE", "America/Santiago": "CL", "America/Punta_Arenas": "CL", "Pacific/Easter": "CL", "America/Guatemala": "GT", "America/Tegucigalpa": "HN", "America/Managua": "NI", "America/Costa_Rica": "CR", "America/Santo_Domingo": "DO", "America/Asuncion": "PY", "America/Montevideo": "UY", "America/La_Paz": "BO", "America/Buenos_Aires": "AR", "America/Cordoba": "AR", "America/Mendoza": "AR", "America/Rosario": "AR", "America/Catamarca": "AR", "America/Jujuy": "AR", "America/Sao_Paulo": "BR", "America/Bahia": "BR", "America/Fortaleza": "BR", "America/Recife": "BR", "America/Belem": "BR", "America/Manaus": "BR", "America/Cuiaba": "BR", "America/Campo_Grande": "BR", "America/Porto_Velho": "BR", "America/Boa_Vista": "BR", "America/Rio_Branco": "BR", "America/Maceio": "BR", "America/Araguaina": "BR", "America/Santarem": "BR", "America/Eirunepe": "BR", "America/Noronha": "BR", "America/Sao_Luis": "BR"};
-  var MONEDAS={"CO": "COP", "MX": "MXN", "PE": "PEN", "CL": "CLP", "AR": "ARS", "BR": "BRL", "GT": "GTQ", "HN": "HNL", "NI": "NIO", "CR": "CRC", "DO": "DOP", "PY": "PYG", "UY": "UYU", "BO": "BOB"}, SIM={"COP": "$", "MXN": "$", "ARS": "$", "CLP": "$", "UYU": "$", "DOP": "RD$", "PEN": "S/", "BRL": "R$", "GTQ": "Q", "HNL": "L", "NIO": "C$", "CRC": "₡", "PYG": "₲", "BOB": "Bs"}, LOC={"COP": "es-CO", "MXN": "es-MX", "ARS": "es-AR", "CLP": "es-CL", "PEN": "es-PE", "UYU": "es-UY", "BOB": "es-BO", "PYG": "es-PY", "GTQ": "es-GT", "HNL": "es-HN", "NIO": "es-NI", "CRC": "es-CR", "DOP": "es-DO", "BRL": "pt-BR"}, USD={"c": 19.99, "p": 9.99, "t": 29.98, "a": 99.95};
+  var MONEDAS={"CO": "COP", "MX": "MXN", "PE": "PEN", "CL": "CLP", "AR": "ARS", "BR": "BRL", "GT": "GTQ", "HN": "HNL", "NI": "NIO", "CR": "CRC", "DO": "DOP", "PY": "PYG", "UY": "UYU", "BO": "BOB"}, SIM={"COP": "$", "MXN": "$", "ARS": "$", "CLP": "$", "UYU": "$", "DOP": "RD$", "PEN": "S/", "BRL": "R$", "GTQ": "Q", "HNL": "L", "NIO": "C$", "CRC": "₡", "PYG": "₲", "BOB": "Bs"}, LOC={"COP": "es-CO", "MXN": "es-MX", "ARS": "es-AR", "CLP": "es-CL", "PEN": "es-PE", "UYU": "es-UY", "BOB": "es-BO", "PYG": "es-PY", "GTQ": "es-GT", "HNL": "es-HN", "NIO": "es-NI", "CRC": "es-CR", "DOP": "es-DO", "BRL": "pt-BR"}, USD={"c": 19.99, "p": 4.99, "t": 24.98, "a": 99.95, "ap": 12.49};
   var MON=null, CUR='USD';
   try{
     var tz=(Intl.DateTimeFormat().resolvedOptions().timeZone)||'';
@@ -933,6 +958,7 @@ vs.forEach(function(v){io.observe(v)})})();
     [].forEach.call(document.querySelectorAll('[data-pr="ancla"]'),function(el){el.textContent=fnum(T.a);});
     [].forEach.call(document.querySelectorAll('[data-pr="curso"]'),function(el){el.textContent=fnum(T.c);});
     [].forEach.call(document.querySelectorAll('[data-pr="pack"]'), function(el){el.textContent=fnum(T.p);});
+    [].forEach.call(document.querySelectorAll('[data-pr="ancla_bump"]'),function(el){el.textContent=fnum(T.ap);});
     [].forEach.call(document.querySelectorAll('[data-total]'),     function(el){el.textContent=fnum(bump?T.t:T.c);});
   };
   window.pintarPrecios();
