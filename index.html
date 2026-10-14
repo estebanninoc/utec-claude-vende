@@ -701,99 +701,38 @@ fbq('track','PageView');
 </div>
 
 <script>
-/* Centinela de la barra fija. Molde de moto-data.pro, con dos arreglos de la
-   obra buybar-subida (14-oct-2026): la barra tardaba en reaparecer al SUBIR.
-   Medido en chromium 390x844 sobre el ejemplar de antes: la clase tardaba
-   150ms fijos en caerse (120px a dedo lento, 606px a manotazo) y la barra no
-   estaba del todo puesta hasta 351ms (1.398px a manotazo), con 1.172-1.738px
-   de subida sin barra. Las dos causas y sus curas:
+/* BARRA FIJA DE COMPRA — ORDEN DE ESTEBAN, 14-oct-2026, textual:
+   "cuando bajas se quita, cuando subes se sube. Facil, sencillo, un codigo basico."
 
-   1) EL ESTADO SALIA DE UN SOLO SENSOR. Solo lo movia IntersectionObserver, y
-      en Safari iOS los callbacks de IO se difieren mientras el scroll corre
-      por inercia: el dedo ya se solto, la pagina sigue andando y la barra no
-      vuelve hasta que todo se frena. Ahora la verdad la pone la GEOMETRIA leida
-      en cada frame de scroll (listener `passive`, coalescido en rAF). Los
-      eventos de scroll SI se disparan durante el momentum. El IO queda de
-      RESPALDO para la geometria que cambia sin scroll (una imagen que carga y
-      empuja la caja de precio), nunca como unica fuente.
+   REEMPLAZA al centinela anterior, que decidia por geometria del CTA +
+   IntersectionObserver (y antes por `display`). Aquel aparato tenia que resolver
+   "el boton real esta tapado?" en cada frame, y de ahi salian el parpadeo y la
+   demora al subir. Ahora la unica regla es la DIRECCION del scroll:
 
-   2) EL CTA TAPABA POR ROZAR UN PIXEL. La regla vieja escondia la barra si el
-      CTA tocaba la pantalla, asi que subiendo btn-pago entraba por ARRIBA y no
-      dejaba de contar hasta salir por ABAJO: 892px de subida con la barra
-      escondida mientras el boton real estaba a media pantalla del pulgar.
-      El unico requisito escrito de esconderse es "no tapar nunca el boton
-      real", y la barra solo puede tapar lo que esta DEBAJO de ella. Asi que
-      la franja no es una fraccion inventada: se deriva de la ALTURA REAL de
-      la barra mas un respiro (RESPIRO px). El CTA cuenta mientras se mete en
-      esa franja, no por rozar la pantalla.
+     bajando -> se quita    ·    subiendo -> se pone    ·    arriba del todo -> quieta
 
-   La histeresis de 140ms se fue: costaba 150ms de demora medidos y a un
-   manotazo de 6.000px/s eso son 606px de pagina sin barra. El pestañeo lo
-   para ahora un margen en PIXELES (Schmitt: la franja se agranda 28px
-   mientras la barra esta escondida), que no cuesta ni un milisegundo.
-   Sigue conmutando por CLASE (transform+opacity, en el compositor), nunca por
-   `display`. Sin IntersectionObserver la barra igual funciona: la mueve el
-   scroll. Sin JS, queda puesta. */
+   Sin observers, sin histeresis de tiempo, sin leer layout. Solo pageYOffset
+   contra el valor anterior. El UMBRAL de 6px es lo unico que hay: evita que el
+   rebote de 1-2px haga titilar la barra. Conmuta por CLASE (transform+opacity,
+   que resuelve el compositor), nunca por `display`: display no es animable y
+   relayoutea la pagina entera en cada cambio. Sin JS la barra queda puesta, que
+   es el fail-safe correcto: un boton de mas, nunca de menos. */
 (function(){
   var bar=document.getElementById('buybar');
   if(!bar) return;
-  var ctas=[document.getElementById('btn-hero'),
-            document.getElementById('btn-pago')].filter(Boolean);
-
-  var RESPIRO=120;  /* px de aire sobre la barra: el CTA ya cuenta desde ahi */
-  var SLACK=28;     /* margen anti-pestañeo, en px, solo mientras esta escondida */
-  var ALTO_SUPUESTO=86;  /* por si la barra mide 0 (display:none en escritorio) */
-  var tapando=null;
-
-  function disputa(){
-    var vh=window.innerHeight||document.documentElement.clientHeight||0;
-    /* La altura NO cambia con el translateY de `.oculta`, asi que se puede
-       leer este con la barra escondida y sigue siendo la de verdad. */
-    var alto=bar.getBoundingClientRect().height||ALTO_SUPUESTO;
-    /* Schmitt: escondida, la franja se agranda SLACK por arriba y por abajo,
-       asi que hace falta mover 28px de verdad para que conmute. Puesta, la
-       franja es la justa. Un borde para entrar y otro para salir. */
-    var techo=vh-(alto+RESPIRO)-(tapando?SLACK:0);
-    var piso=vh+(tapando?SLACK:0);
-    for(var i=0;i<ctas.length;i++){
-      var r=ctas[i].getBoundingClientRect();
-      if(r.bottom>techo && r.top<piso) return true;
-    }
-    return false;
-  }
-
-  function pinta(){
-    var t=disputa();
-    if(t===tapando) return;               /* nada cambio: no se toca el DOM */
-    tapando=t;
-    if(t) bar.classList.add('oculta');
-    else  bar.classList.remove('oculta');
-  }
-
-  /* Un solo recalculo por frame, aunque lleguen 60 eventos de scroll. */
-  var pedido=false;
-  function pedir(){
-    if(pedido) return;
-    pedido=true;
-    requestAnimationFrame(function(){ pedido=false; pinta(); });
-  }
-
-  addEventListener('scroll',pedir,{passive:true});
-  addEventListener('resize',pedir,{passive:true});
-  addEventListener('orientationchange',pedir,{passive:true});
-
-  pinta();  /* estado real YA, antes de cualquier sensor: si lo de abajo
-               revienta, la barra igual nace bien y el scroll la sigue
-               moviendo. El orden importa -- medido en banco_io_diferido. */
-
-  /* Respaldo, y por eso va en try: un IO ausente o roto no puede llevarse
-     puesto al centinela entero. */
-  try{
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(pedir,{threshold:0});
-      for(var k=0;k<ctas.length;k++) io.observe(ctas[k]);
-    }
-  }catch(e){}
+  var TOPE=320;   /* px: arriba de esto manda el CTA del hero y la barra no estorba */
+  var MIN=6;      /* px: movimiento minimo para que cuente como bajar o subir */
+  function y(){ return window.pageYOffset||document.documentElement.scrollTop||0; }
+  function ver(v){ if(v) bar.classList.remove('oculta'); else bar.classList.add('oculta'); }
+  var ant=y();
+  ver(false);
+  addEventListener('scroll',function(){
+    var h=y();
+    if(h<TOPE)         ver(false);
+    else if(h>ant+MIN) ver(false);
+    else if(h<ant-MIN) ver(true);
+    if(Math.abs(h-ant)>=MIN) ant=h;
+  },{passive:true});
 })();
 </script>
 
