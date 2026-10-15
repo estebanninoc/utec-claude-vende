@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- vel1-claude -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Curso de Claude Code · CODE PRO · Pago único US$19.99</title>
@@ -14,7 +15,16 @@
 <link rel="preload" href="fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* cls1-fallback-v1: fallbacks métricos para que el cambio de fuente no mueva el layout */
-@font-face{font-family:'Serif Fallback';src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif'),local('Tinos');size-adjust:100.67%}
+@font-face{font-family:'Serif Fallback';src:local('Times New Roman'),local('TimesNewRomanPSMT'),local('Liberation Serif'),local('Tinos');size-adjust:100.67%;ascent-override:103.31%;descent-override:33.77%;line-gap-override:0%}
+/* VEL1 (CLS): respaldo con las métricas de Inter mientras llega inter-var.woff2 (antes caía a system-ui, más bajo/angosto,
+   y al llegar Inter el hero crecía 30 px y empujaba el clip). Medido con canvas sobre el texto real de la página:
+   calibrado para que los cortes de línea de TODA la página (390 y 1440) queden iguales a los de Inter, normal y negrita por separado:
+   Arial/Liberation normal +7,5 %, negrita +4,0 %; Android (sin Arial) usa Roboto: normal +7,5 %, negrita +9,2 %.
+   Mismo unicode-range que Inter: lo que Inter no trae (p.ej. la flecha →) sigue cayendo a la fuente del sistema, como antes. Ascent/descent = Inter (0,97/0,24 em). */
+@font-face{font-family:'Sans Fallback';font-weight:100 500;src:local('Arial'),local('ArialMT'),local('Liberation Sans'),local('Arimo');size-adjust:107.50%;ascent-override:90.23%;descent-override:22.33%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Sans Fallback';font-weight:600 900;src:local('Arial Bold'),local('Arial-BoldMT'),local('Liberation Sans Bold'),local('Arimo Bold');size-adjust:104.00%;ascent-override:93.27%;descent-override:23.08%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Sans Fallback R';font-weight:100 500;src:local('Roboto'),local('Roboto-Regular');size-adjust:107.50%;ascent-override:90.23%;descent-override:22.33%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Sans Fallback R';font-weight:600 900;src:local('Roboto Bold'),local('Roboto-Bold');size-adjust:109.20%;ascent-override:88.83%;descent-override:21.98%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Source Serif 4';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/source-serif-4-var.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 @font-face{font-family:'Inter var';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-var.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jetbrains-mono.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
@@ -44,6 +54,8 @@
   --sans:'Inter var','Inter',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
 }
+/* VEL1 (CLS): en celular el respaldo de Inter usa las caras con métricas de Inter (en escritorio la cadena de antes ya no brincaba). */
+@media (max-width:820px){:root{--sans:'Inter var','Inter','Sans Fallback','Sans Fallback R',system-ui,sans-serif}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
